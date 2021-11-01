@@ -35,13 +35,13 @@ Faculty Member
     Eric Samperton
 
 Graduates:
-    Rocco Davino
+    Rocco Davino,
     Scott Harman
 
 Undergradutes:
-    Gargee Jagtap
-    [@Nikhil Richard](nikhilr5@illinois.edu)
-    Ivan Schwieger
+    Gargee Jagtap,
+    [@Nikhil Richard](nikhilr5@illinois.edu),
+    Ivan Schwieger,
     XiaohanWang
 
 
