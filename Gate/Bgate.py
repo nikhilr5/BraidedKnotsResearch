@@ -4,7 +4,7 @@ import Tgate
 
 class Bgate:
     """
-        I suppose we need a binary gate set
+    I suppose we need a binary gate set (!?).
     """
 
     def __init__(self, gate_type, x, name):
@@ -26,13 +26,15 @@ class Bgate:
     def __str__(self):
         """
         Returns:
-              Ternary gate.  
+            Binary gate (in nice format?).  
         """
         return f' Input of Binary gate: {self.input} \n Ouput of binary gate: {self.output}'
     
     def and_gate(self):
         x = self.input
-        if len(x) != 2 or (x[0] != 0 and x[0] != 1) or (x[1] != 0 and x[1] != 1):
+        # if len(x) != 2 or (x[0] != 0 and x[0] != 1) or (x[1] != 0 and x[1] != 1):
+        #     raise ValueError('Invalid input')
+        if not set(x).issubset({0,1}):
             raise ValueError('Invalid input')
         y = list();
         y.append(x[0] and x[1])
@@ -40,7 +42,9 @@ class Bgate:
 
     def or_gate(self):
         x = self.input
-        if len(x) != 2 or (x[0] != 0 and x[0] != 1) or (x[1] != 0 and x[1] != 1):
+        # if len(x) != 2 or (x[0] != 0 and x[0] != 1) or (x[1] != 0 and x[1] != 1):
+        #     raise ValueError('Invalid input')
+        if not set(x).issubset({0,1}):
             raise ValueError('Invalid input')
         y = list();
         y.append(x[0] or x[1])
@@ -58,7 +62,9 @@ class Bgate:
         return self.name
 
     def binary_to_ternary(self, ancilla, newName):
-        # take in a binary gate, return a corresponding ternary gate
+        """
+        Take in a binary gate, return a corresponding ternary gate.
+        """
         if self.type == 'and':
             x = list()
             x.append(self.input[0])
@@ -80,10 +86,3 @@ class Bgate:
             x.append(0)     # ancilla 
             returnTGate = Tgate.Tgate('not', x, newName)
             return returnTGate
-
-    @staticmethod
-    def add(x,y):
-        return x + y
-
-
-print(Bgate.add(1,2))
