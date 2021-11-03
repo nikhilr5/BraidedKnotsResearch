@@ -1,8 +1,9 @@
 import sys
 sys.path.append(".")
 import Bgate
+from Gate import Gate
 
-class Tgate:
+class Tgate(Gate):
     """
     Takes a binary gate and changes it to a reversible ternary gate (better class description?).
     """
@@ -15,7 +16,7 @@ class Tgate:
             - x: input bits, a set of length 3 consisting of 0, 1.
         Returns:
         """
-        #super().__init__(name)
+        super().__init__(name)
         #if len(x) > 2 or len(x) < 1:
         if len(x) != 3:
             raise ValueError('Incorrect length of input')
@@ -37,12 +38,6 @@ class Tgate:
         else:
             raise ValueError('Incorrect gate type')
             
-    def __str__(self):
-        """
-        Returns:
-            Ternary gate (in nice format?).
-        """
-        return f' Input of ternary gate: {self.input} \n Output of ternary gate: {self.output}'
         
     def and_gate(self):
         """
@@ -95,8 +90,6 @@ class Tgate:
         y.append(x[2])
         self.output = y
 
-    def getName(self):
-        return self.name
 
     def set_gate(self, new_gate):
         """

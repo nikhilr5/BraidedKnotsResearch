@@ -1,8 +1,9 @@
 import sys
 sys.path.append(".")
 import Tgate
+from Gate import Gate
 
-class Bgate:
+class Bgate(Gate):
     """
     I suppose we need a binary gate set (!?).
     """
@@ -22,13 +23,6 @@ class Bgate:
             self.not_gate()
         else:
             raise ValueError('Incorrect gate type')
-
-    def __str__(self):
-        """
-        Returns:
-            Binary gate (in nice format?).  
-        """
-        return f' Input of Binary gate: {self.input} \n Ouput of binary gate: {self.output}'
     
     def and_gate(self):
         x = self.input
@@ -58,9 +52,6 @@ class Bgate:
         y.append(1 - x[0])
         self.output = y 
 
-    def getName(self):
-        return self.name
-
     def binary_to_ternary(self, ancilla, newName):
         """
         Take in a binary gate, return a corresponding ternary gate.
@@ -86,3 +77,4 @@ class Bgate:
             x.append(0)     # ancilla 
             returnTGate = Tgate.Tgate('not', x, newName)
             return returnTGate
+
