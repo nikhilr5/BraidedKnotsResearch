@@ -6,9 +6,20 @@ from Gate import Gate
 class Bgate(Gate):
     """
     I suppose we need a binary gate set (!?).
+
+    A class for the binary gates
+    Each Bgate object consists of 3 main things: an input, a function, and an output
+    and a name also
     """
 
     def __init__(self, gate_type, x, name):
+        """
+        Initialization of a Bgate Object
+        Arguments: 
+            - gate_type: the gate type, a string 'and', 'or', or 'not'
+            - x: a list of input bits, length should be 2 for 'and'/'or' gates and 1 for 'not' gates
+            - name: a name
+        """
         #super().__init__(name)
         self.input = x
         self.output = list()
@@ -25,10 +36,8 @@ class Bgate(Gate):
             raise ValueError('Incorrect gate type')
     
     def and_gate(self):
-        x = self.input
-        # if len(x) != 2 or (x[0] != 0 and x[0] != 1) or (x[1] != 0 and x[1] != 1):
-        #     raise ValueError('Invalid input')
-        if not set(x).issubset({0,1}):
+        x = self.check_input
+        if not set(x).issubset({0,1}):     # clever! nice & clean now
             raise ValueError('Invalid input')
         y = list();
         y.append(x[0] and x[1])
@@ -36,8 +45,6 @@ class Bgate(Gate):
 
     def or_gate(self):
         x = self.input
-        # if len(x) != 2 or (x[0] != 0 and x[0] != 1) or (x[1] != 0 and x[1] != 1):
-        #     raise ValueError('Invalid input')
         if not set(x).issubset({0,1}):
             raise ValueError('Invalid input')
         y = list();
