@@ -13,20 +13,19 @@ class Tgate(Gate):
         Initiates a new  ternary gate.
         Arguments: 
             - gate_type: the gate type, a string 'and', 'or', or 'not'
-            - x: input bits, a set of length 3 consisting of 0, 1.
-        Returns:
+            - x: a list of input bits of length 3 consisting of 0, 1.
+            - name: a name
         """
         super().__init__(name)
         #if len(x) > 2 or len(x) < 1:
         if len(x) != 3:
             raise ValueError('Incorrect length of input')
-        # if (x[0] != 0 and x[0] != 1) or (x[1] != 0 and x[1] != 1) or (x[2] != 0 and x[2] != 1): # should find a way to make this line prettier 
-        #     raise ValueError('Invalid input')
         if not set(x).issubset({0,1}):
             raise ValueError('Invalid input')
         self.name = name
         self.input = x
         self.output = list(); # ends up being set in the functions below anyways
+                            ## should still be a list unless you want to use ordered set
         self.type = gate_type # gate_type = and/or/not
         if gate_type == 'and':
             self.and_gate()
@@ -45,7 +44,8 @@ class Tgate(Gate):
         Arguments:
             None.
         Returns: 
-            
+            None.
+            Set the output according to the gate type & input
         """
         x = self.input
         y = list();
@@ -60,7 +60,8 @@ class Tgate(Gate):
         Arguments:
             None.
         Returns: 
-            
+            None.
+            Set the output according to the gate type & input
         """
         x = self.input
         y = list();
@@ -76,16 +77,21 @@ class Tgate(Gate):
             None.
         Returns:
             Nothing, just set the output accordingly (this can be clearer).
+            None.
+            Set the output according to the gate type & input
+            first bit of output is the negated first bit of input
+            second & thrid bits: place holders
         """
         x = self.input
         y = list();
         #if (len(x) != 1):
         #    raise ValueError('Length of list is incorrect.  The length must be equal to 1.')
         #    return
-        if x[0] == 0:
-            y.append(1)
-        else:
-            y.append(0)
+        #if x[0] == 0:
+        #    y.append(1)
+        #else:
+        #    y.append(0)
+        y.append(1-x[0])
         y.append(x[1])
         y.append(x[2])
         self.output = y
@@ -96,8 +102,9 @@ class Tgate(Gate):
         A way to modify the gate type after initializing the gate 
         (works but doesn't look nice, can probably code it in a better way).
         Arguments:
-            gate.
+            - new_gate: a string: 'and'/'or'/'not'
         Returns:
+            None
         """
         if new_gate != 'and' and new_gate != 'or' and new_gate != 'not':
             raise ValueError('Invalid gate type')
@@ -112,6 +119,8 @@ class Tgate(Gate):
     #     if new_gate_type not in ['and', 'or', 'not']:
     #         raise ValueError('Invalid gate type')
     #     tmpgate = Tgate(new_gate_type, self.input, self.name)
+    ## actually I was thinking about modifying the below chuck of code
+    ## but they work, while simply setting self = tmpgate doesn't work
     #     self.input = tmpgate.input
     #     self.output = tmpgate.output
     #     self.type = tmpgate.type
@@ -121,12 +130,12 @@ class Tgate(Gate):
         """
         A way to modify the input after initialization.
         Arguments:
+            - x: input, a list of length 3 
         Returns:
+            None
         """
         if len(x) != 3:
             raise ValueError('Invalid input length')
-        # if (x[0] != 0 and x[0] != 1) or (x[1] != 0 and x[1] != 1) or (x[2] != 0 and x[2] != 1):
-        #     raise ValueError('Invalid input bits')
         if not set(x).issubset({0,1}):
             raise ValueError('Invalid input')
         tmpgate = Tgate(self.type, x, self.name)
