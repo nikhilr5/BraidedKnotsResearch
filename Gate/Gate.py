@@ -8,7 +8,7 @@ class Gate:
     def __str__(self):
         """
         Returns:
-              Ternary gate.  
+              Inputs and Outputs of gate.
         """
         return f' Input of Binary gate: {self.input} \n Ouput of binary gate: {self.output}'
 
@@ -26,5 +26,10 @@ class Gate:
 
     def getName(self):
         return self.name
+
+    def getInput(self):
+        return self.input
     
+    def getOutput(self):
+        return self.output
     
