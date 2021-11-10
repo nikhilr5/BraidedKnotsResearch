@@ -3,12 +3,14 @@ class GCgate:
     a set of bijection function (gates) for the GC coloring stuff
     extremely skeletal for now
     """
-    def __init__(self, function, x, name):
+    def __init__(self,A ,k, l, function, name):
         """Initiates a new gate.
             Arguements: 
-                - function: the bijection function
-                - x: input a list
+                - function: blackbox
                 - name: just a name :)
+                - A: alphabet
+                - k: input length
+                - l: output length
         """
         self.input = x
         self.name = name
@@ -39,6 +41,9 @@ class GCgate:
         return True if function is valid, False otherwise
         """
         return False
+
+    def evaluate(self, x):
+        return 
 
     ## a dictionary for the elements in C <- conjugacy class
     ## propably later, need to look at sage data structure first D:
