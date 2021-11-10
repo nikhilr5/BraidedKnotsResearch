@@ -11,8 +11,7 @@ class Bgate(Gate):
     Each Bgate object consists of 3 main things: an input, a function, and an output
     and a name also
     """
-
-    def __init__(self, gate_type, name):
+    def __init__(self, function, name):
         """
         Initialization of a Bgate Object
         Arguments: 
@@ -20,73 +19,79 @@ class Bgate(Gate):
             - x: a list of input bits, length should be 2 for 'and'/'or' gates and 1 for 'not' gates
             - name: a name
         """
-        #super().__init__(name)
-        #self.input = x
-        self.output = list()
-        self.name = name
-        self.type = gate_type
+        # name function alphabet k l
+        #super().__init__(name, function, {0,1}, 2, 1)
 
-        if gate_type == 'and':
-            #self.and_gate()
-            continue
-        elif gate_type == 'or':
-            #self.or_gate()
-            continue
-        elif gate_type == 'not':
-            #self.not_gate()
-            continue
+        if function == 'and':
+            super().__init__(name, function, {0,1}, 2, 1)
+        elif function == 'or':
+            super().__init__(name, function, {0,1}, 2, 1)
+        elif function == 'not':
+            super().__init__(name, function, {0,1}, 1, 1)
         else:
             raise ValueError('Incorrect gate type')
-    """
-    def and_gate(self):
-        x = self.check_input
+        self.name = name
+        self.function = function
+    
+    def and_gate(self, x):
+        if not len(x) != 2:
+            raise ValueError('Invalid input length')
         if not set(x).issubset({0,1}):     # clever! nice & clean now
             raise ValueError('Invalid input')
-        y = list();
+        y = list()
         y.append(x[0] and x[1])
         self.output = y 
 
-    def or_gate(self):
-        x = self.input
-        if not set(x).issubset({0,1}):
+    def or_gate(self, x):
+        if not len(x) != 2:
+            raise ValueError('Invalid input length')
+        if not set(x).issubset({0,1}):     # clever! nice & clean now
             raise ValueError('Invalid input')
-        y = list();
+        y = list()
         y.append(x[0] or x[1])
         self.output = y 
 
-    def not_gate(self):
-        x = self.input
-        if len(x) != 1 or (x[0] != 0 and x[0] != 1):
+    def not_gate(self, x):
+        if not len(x) != 1:
+            raise ValueError('Invalid input length')
+        if not set(x).issubset({0,1}):     # clever! nice & clean now
             raise ValueError('Invalid input')
-        y = list();
+        y = list()
         y.append(1 - x[0])
         self.output = y 
-    """
+    
 
-    def binary_to_ternary(self, ancilla, newName):
+    def evaluate(self, x):
+        """
+        Arguments: 
+            - x: input
+        Output:
+            - y: the gate function evaluated at x
+        """
+        if self.function == 'and':
+            y = self.and_gate(x)
+        elif self.function == 'or':
+            y = self.or_gate(x)
+        elif self.function == 'not':
+            y = self.not_gate(x)
+        else:
+            raise ValueError('Incorrect gate type')
+        return y
+
+
+    def binary_to_ternary(self, newName):
         """
         Take in a binary gate, return a corresponding ternary gate.
         def __init__(self, gate_type, name) <- initialization of ternary gate
         """
-        if self.type == 'and':
-            #x = list()
-            #x.append(self.input[0])
-            #x.append(self.input[1])
-            #x.append(ancilla)    # ancilla bit
+        # name function alphabet k l
+        if self.function == 'and':
             returnTGate = Tgate.Tgate('and', newName)
             return returnTGate
-        if type == 'or':
-            x = list()
-            x.append(self.input[0])
-            x.append(self.input[1])
-            x.append(ancilla)    # ancilla bit
+        if self.function == 'or':
             returnTGate = Tgate.Tgate('or', newName)
             return returnTGate
         if type == 'not':
-            x = list()
-            x.append(self.input[0])
-            x.append(0)     # ancilla
-            x.append(0)     # ancilla 
             returnTGate = Tgate.Tgate('not', newName)
             return returnTGate
 
