@@ -8,7 +8,7 @@ class Tgate(Gate):
     Takes a binary gate and changes it to a reversible ternary gate (better class description?).
     """
     
-    def __init__(self, gate_type, x, name):
+    def __init__(self, gate_type, name):
         """
         Initiates a new  ternary gate.
         Arguments: 
@@ -20,84 +20,89 @@ class Tgate(Gate):
         #if len(x) > 2 or len(x) < 1:
         if len(x) != 3:
             raise ValueError('Incorrect length of input')
-        if not set(x).issubset({0,1}):
-            raise ValueError('Invalid input')
+        #if not set(x).issubset({0,1}):
+        #    raise ValueError('Invalid input')
         self.name = name
-        self.input = x
-        self.output = list(); # ends up being set in the functions below anyways
+        #self.input = x
+        #self.output = list(); # ends up being set in the functions below anyways
                             ## should still be a list unless you want to use ordered set
         self.type = gate_type # gate_type = and/or/not
         if gate_type == 'and':
-            self.and_gate()
+            #self.and_gate()
+            continue
         elif gate_type == 'or':
-            self.or_gate()
+            #self.or_gate()
+            continue
         elif gate_type == 'not':
-            self.not_gate()
+            #self.not_gate()
+            continue
         # else, throw an exception
         else:
             raise ValueError('Incorrect gate type')
+    
+    def evaluate(self, x):
+        """
+        Arguments: 
+            - x: input
+        Output:
+            - y: the gate function evaluated at x
+        """
+        y = list()
+        if gate_type == 'and':
+            y = self.and_gate(x)
+        elif gate_type == 'or':
+            y = self.or_gate(x)
+        elif gate_type == 'not':
+            y = self.not_gate(x)
+        # else, throw an exception
+        else:
+            raise ValueError('Incorrect gate type')
+        return y
             
-        
-    def and_gate(self):
+      
+    def and_gate(self, x):
         """
-        Creates 'and' gate object.
+        Evaluation
         Arguments:
-            None.
+            x
         Returns: 
-            None.
-            Set the output according to the gate type & input
+            y
         """
-        x = self.input
-        y = list();
+        y = list()
         y.append(((x[0] and x[1]) + x[2]) % 2)
         y.append(x[0])
         y.append(x[1])
-        self.output = y 
+        return y 
 
-    def or_gate(self):
+    def or_gate(self, x):
         """
-        Creates 'or' gate object.
+        Evaluation
         Arguments:
-            None.
+            x
         Returns: 
-            None.
-            Set the output according to the gate type & input
+            y
         """
-        x = self.input
         y = list();
         y.append(((x[0] or x[1]) + x[2]) % 2)
         y.append(x[0])
         y.append(x[1])
-        self.output = y
+        return y
 
-    def not_gate(self):
+    def not_gate(self, x):
         """
-        Creates 'not' gate object.
         Argument:
-            None.
+            x
         Returns:
-            Nothing, just set the output accordingly (this can be clearer).
-            None.
-            Set the output according to the gate type & input
-            first bit of output is the negated first bit of input
-            second & thrid bits: place holders
+            y
         """
-        x = self.input
         y = list();
-        #if (len(x) != 1):
-        #    raise ValueError('Length of list is incorrect.  The length must be equal to 1.')
-        #    return
-        #if x[0] == 0:
-        #    y.append(1)
-        #else:
-        #    y.append(0)
         y.append(1-x[0])
         y.append(x[1])
         y.append(x[2])
-        self.output = y
+        return y
 
 
-    def set_gate(self, new_gate):
+    #def set_gate(self, new_gate):
         """
         A way to modify the gate type after initializing the gate 
         (works but doesn't look nice, can probably code it in a better way).
@@ -106,13 +111,13 @@ class Tgate(Gate):
         Returns:
             None
         """
-        if new_gate != 'and' and new_gate != 'or' and new_gate != 'not':
-            raise ValueError('Invalid gate type')
-        tmpgate = Tgate(new_gate, self.input, self.name)
-        self.input = tmpgate.input
-        self.output = tmpgate.output
-        self.type = tmpgate.type
-        self.name = tmpgate.name
+    #    if new_gate != 'and' and new_gate != 'or' and new_gate != 'not':
+    #        raise ValueError('Invalid gate type')
+    #    tmpgate = Tgate(new_gate, self.input, self.name)
+    #    self.input = tmpgate.input
+    #    self.output = tmpgate.output
+    #    self.type = tmpgate.type
+    #    self.name = tmpgate.name
 
     # # Is this the function you want instead?
     # def set_gate1(self, new_gate_type)
@@ -126,7 +131,7 @@ class Tgate(Gate):
     #     self.type = tmpgate.type
     #     self.name = tmpgate.name
 
-    def set_input(self, x):
+    #def set_input(self, x):
         """
         A way to modify the input after initialization.
         Arguments:
@@ -134,15 +139,16 @@ class Tgate(Gate):
         Returns:
             None
         """
-        if len(x) != 3:
-            raise ValueError('Invalid input length')
-        if not set(x).issubset({0,1}):
-            raise ValueError('Invalid input')
-        tmpgate = Tgate(self.type, x, self.name)
-        self.input = tmpgate.input
-        self.output = tmpgate.output
-        self.type = tmpgate.type
-        self.name = tmpgate.name
+    #    if len(x) != 3:
+    #        raise ValueError('Invalid input length')
+    #    if not set(x).issubset({0,1}):
+    #        raise ValueError('Invalid input')
+    #    tmpgate = Tgate(self.type, x, self.name)
+    #    self.input = tmpgate.input
+    #    self.output = tmpgate.output
+    #    self.type = tmpgate.type
+    #    self.name = tmpgate.name
+    
 
     # def binary_to_ternary(self, bgate, name, ancilla):
     #     # Take in a binary gate, return a corresponding ternary gate

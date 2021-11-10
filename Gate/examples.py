@@ -14,3 +14,5 @@ print(gate2.getName(), '\n', gate2)
 ############## Creates Ternary gate
 gate3 = Tgate.Tgate('and', [1,0,0], 'gate3')
 print(gate3.getName(), '\n', gate3)
+
+
