@@ -15,3 +15,4 @@ circuit1 = Circuit.Circuit("circuit1", gateSet)
 circuit1.setEdge(gateA, gateB)
 print(circuit1)
 
+

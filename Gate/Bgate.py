@@ -12,7 +12,7 @@ class Bgate(Gate):
     and a name also
     """
 
-    def __init__(self, gate_type, x, name):
+    def __init__(self, gate_type, name):
         """
         Initialization of a Bgate Object
         Arguments: 
@@ -21,20 +21,23 @@ class Bgate(Gate):
             - name: a name
         """
         #super().__init__(name)
-        self.input = x
+        #self.input = x
         self.output = list()
         self.name = name
         self.type = gate_type
 
         if gate_type == 'and':
-            self.and_gate()
+            #self.and_gate()
+            continue
         elif gate_type == 'or':
-            self.or_gate()
+            #self.or_gate()
+            continue
         elif gate_type == 'not':
-            self.not_gate()
+            #self.not_gate()
+            continue
         else:
             raise ValueError('Incorrect gate type')
-    
+    """
     def and_gate(self):
         x = self.check_input
         if not set(x).issubset({0,1}):     # clever! nice & clean now
@@ -58,30 +61,32 @@ class Bgate(Gate):
         y = list();
         y.append(1 - x[0])
         self.output = y 
+    """
 
     def binary_to_ternary(self, ancilla, newName):
         """
         Take in a binary gate, return a corresponding ternary gate.
+        def __init__(self, gate_type, name) <- initialization of ternary gate
         """
         if self.type == 'and':
-            x = list()
-            x.append(self.input[0])
-            x.append(self.input[1])
-            x.append(ancilla)    # ancilla bit
-            returnTGate = Tgate.Tgate('and', x, newName)
+            #x = list()
+            #x.append(self.input[0])
+            #x.append(self.input[1])
+            #x.append(ancilla)    # ancilla bit
+            returnTGate = Tgate.Tgate('and', newName)
             return returnTGate
         if type == 'or':
             x = list()
             x.append(self.input[0])
             x.append(self.input[1])
             x.append(ancilla)    # ancilla bit
-            returnTGate = Tgate.Tgate('or', x, newName)
+            returnTGate = Tgate.Tgate('or', newName)
             return returnTGate
         if type == 'not':
             x = list()
             x.append(self.input[0])
             x.append(0)     # ancilla
             x.append(0)     # ancilla 
-            returnTGate = Tgate.Tgate('not', x, newName)
+            returnTGate = Tgate.Tgate('not', newName)
             return returnTGate
 
