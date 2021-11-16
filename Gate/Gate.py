@@ -37,14 +37,16 @@ class Gate:
 orGate =	{
   (0,0): 0,
   (0,1): 1,
-  (1,0): 2,
-  (1,1): 3
+  (1,0): 1,
+  (1,1): 1
 }
 
 g = Gate(name="g", function=orGate, alphabet={0,1}, k=2, l=1)
 
 x = (1,0)
+print(g)
 print(g.evaluate(x))
+
 
         
 

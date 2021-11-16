@@ -37,8 +37,6 @@ class Tgate(Gate):
             #self.not_gate()
             continue
         # else, throw an exception
-        else:
-            raise ValueError('Incorrect gate type')
     
     def evaluate(self, x):
         """
