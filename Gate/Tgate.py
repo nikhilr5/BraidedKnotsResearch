@@ -8,7 +8,7 @@ class Tgate(Gate):
     Takes a binary gate and changes it to a reversible ternary gate (better class description?).
     """
     
-    def __init__(self, gate_type, name):
+    def __init__(self, function, name):
         """
         Initiates a new  ternary gate.
         Arguments: 
@@ -16,24 +16,25 @@ class Tgate(Gate):
             - x: a list of input bits of length 3 consisting of 0, 1.
             - name: a name
         """
-        super().__init__(name)
+        # name function alphabet k l
+        super().__init__(name, function, {0,1}, 3, 3)
         #if len(x) > 2 or len(x) < 1:
-        if len(x) != 3:
-            raise ValueError('Incorrect length of input')
+        #if len(x) != 3:
+        #    raise ValueError('Incorrect length of input')
         #if not set(x).issubset({0,1}):
         #    raise ValueError('Invalid input')
         self.name = name
         #self.input = x
         #self.output = list(); # ends up being set in the functions below anyways
                             ## should still be a list unless you want to use ordered set
-        self.type = gate_type # gate_type = and/or/not
-        if gate_type == 'and':
+        self.function = function # gate_type = and/or/not
+        if function == 'and':
             #self.and_gate()
             continue
-        elif gate_type == 'or':
+        elif function == 'or':
             #self.or_gate()
             continue
-        elif gate_type == 'not':
+        elif function == 'not':
             #self.not_gate()
             continue
         # else, throw an exception
@@ -47,14 +48,15 @@ class Tgate(Gate):
         Output:
             - y: the gate function evaluated at x
         """
+        if len(x) != 3:
+            raise ValueError('Incorrect length of input')
         y = list()
-        if gate_type == 'and':
+        if self.function == 'and':
             y = self.and_gate(x)
-        elif gate_type == 'or':
+        elif self.function == 'or':
             y = self.or_gate(x)
-        elif gate_type == 'not':
+        elif self.function == 'not':
             y = self.not_gate(x)
-        # else, throw an exception
         else:
             raise ValueError('Incorrect gate type')
         return y
@@ -68,6 +70,8 @@ class Tgate(Gate):
         Returns: 
             y
         """
+        if len(x) != 3:
+            raise ValueError('Incorrect length of input')
         y = list()
         y.append(((x[0] and x[1]) + x[2]) % 2)
         y.append(x[0])
@@ -82,6 +86,8 @@ class Tgate(Gate):
         Returns: 
             y
         """
+        if len(x) != 3:
+            raise ValueError('Incorrect length of input')
         y = list();
         y.append(((x[0] or x[1]) + x[2]) % 2)
         y.append(x[0])
@@ -95,6 +101,8 @@ class Tgate(Gate):
         Returns:
             y
         """
+        if len(x) != 3:
+            raise ValueError('Incorrect length of input')
         y = list();
         y.append(1-x[0])
         y.append(x[1])
@@ -149,26 +157,3 @@ class Tgate(Gate):
     #    self.type = tmpgate.type
     #    self.name = tmpgate.name
     
-
-    # def binary_to_ternary(self, bgate, name, ancilla):
-    #     # Take in a binary gate, return a corresponding ternary gate
-    #     self.name = name
-    #     self.type = bgate.type
-    #     if self.type == 'and':
-    #         x = list()
-    #         x.append(bgate.input[0])
-    #         x.append(bgate.input[1])
-    #         x.append(ancilla)    # ancilla bit
-    #         self.and_gate()
-    #     if self.type == 'or':
-    #         x = list()
-    #         x.append(bgate.input[0])
-    #         x.append(bgate.input[1])
-    #         x.append(ancilla)    # ancilla bit
-    #         self.or_gate()
-    #     if self.type == 'not':
-    #         x = list()
-    #         x.append(bgate.input[0])
-    #         x.append(0)     # ancilla
-    #         x.append(0)     # ancilla 
-    #         self.not_gate(ancilla)

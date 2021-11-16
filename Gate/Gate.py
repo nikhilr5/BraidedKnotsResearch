@@ -4,8 +4,8 @@ class Gate:
         self.name = name
         self.function = function
         self.alphabet = alphabet
-        self.k = k
-        self.l = l
+        self.k = k  # input arity
+        self.l = l  # output arity
 
     def __str__(self):
         """
@@ -32,17 +32,55 @@ class Gate:
     def evaluate(self, x):
         return self.function[(x)]
 
+
 orGate =	{
   (0,0): 0,
   (0,1): 1,
-  (1,0): 2,
-  (1,1): 3
+  (1,0): 1,
+  (1,1): 1,
+  (0,0,0): (0,0,0),
+  (0,1,0): (1,0,1),
+  (1,0,0): (1,1,0),
+  (1,1,0): (1,1,1),
+  (0,0,1): (1,0,0),
+  (0,1,1): (0,0,1),
+  (1,0,1): (0,1,0),
+  (1,1,1): (0,1,1)
 }
 
+andGate =   {
+  (0,0): 0,
+  (0,1): 0,
+  (1,0): 0,
+  (1,1): 1,
+  (0,0,0): (0,0,0),
+  (0,1,0): (0,0,1),
+  (1,0,0): (0,1,0),
+  (1,1,0): (1,1,1),
+  (0,0,1): (1,0,0),
+  (0,1,1): (1,0,1),
+  (1,0,1): (1,1,0),
+  (1,1,1): (0,1,1)
+}
+
+notGate =   {
+  0: 1,
+  1: 0,
+  (0,0,0): (1,0,0),
+  (0,1,0): (1,1,0),
+  (1,0,0): (0,0,0),
+  (1,1,0): (0,1,0),
+  (0,0,1): (1,0,1),
+  (0,1,1): (1,1,1),
+  (1,0,1): (0,0,1),
+  (1,1,1): (0,1,1)
+}
+"""
 g = Gate(name="g", function=orGate, alphabet={0,1}, k=2, l=1)
 
 x = (1,0)
 print(g.evaluate(x))
+"""
 
 ##################################################################
 ##################################################################
@@ -75,6 +113,7 @@ class BBNotGate(BBGate):
     def __init__(self):
         super(BBNotGate, self).__init__('Not', {0: 1, 1: 0}, 1)
 
+
 g = BBAndGate()
 x = (1,0)
 print(g.evaluate(x))
@@ -90,6 +129,7 @@ print(g.evaluate(y))
 g = BBNotGate()
 x = 0
 print(g.evaluate(x))
+
 
 # Same stuff for ternary boolean gates, where alphabet is {0,1},
 # and functions are on triples (and return triples)
@@ -121,12 +161,12 @@ class TBAndGate(TBGate):
 
         super(TBAndGate, self).__init__('And', f)
 
-g = TBAndGate()
-x = (1, 0, 0)
-print(g.evaluate(x))
+#g = TBAndGate()
+#x = (1, 0, 0)
+#print(g.evaluate(x))
 
 # Example of bad BB gate attempt, get value error
 
-h = BBGate('bad', {0: 1}, 1)
-x = 0
-print(g.evaluate(x))
+#h = BBGate('bad', {0: 1}, 1)
+#x = 0
+#print(g.evaluate(x))
