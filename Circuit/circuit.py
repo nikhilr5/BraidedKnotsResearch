@@ -10,12 +10,23 @@ import Gate
 import Bgate
 import Tgate
 from abc import abstractmethod
+import copy
 
-class Circuit:
+class ReversibleCircuit:
 
-    def __init__(self, name, gateSet):
+    def __init__(self, name, gateList, input_arity, output_arity):
+        """
+            - gatelist: a list of tuples in the form (gate, idx1, idx2)
+                where idx
+        """
         self.name = name
-        self.constructGateDict(gateSet)
+        self.input_arity = input_arity
+        self.output_arity = output_arity
+        # throw an exception if input arity and output arity dont match
+        self.gate_list = gateList
+        #self.constructGateDict(gateSet)
+        self.constructCircuit(gateList)
+
 
     def __str__(self):
         """
@@ -32,21 +43,38 @@ class Circuit:
     def getGateDict(self):
         return self.getGateDict
 
-    def constructGateDict(self, gateSet):
-        gateDict = {}
-        for gate in gateSet:
-            gateInputs = gate.input
-            gateOutputs = gate.output
-            currDict = {}
-            currDict['input'] = gateInputs
-            currDict['outputs'] = gateOutputs
-            gateDict[gate.getName()] = currDict
+    def constructCircuit(self, gateList):
+        """
+        wiring up the circuit
+        later
+        """
+        if len(gateList) == 0:
+            return
+        for (gate, idx1, idx2) in gateList:
+            return
+        #self.gateDict = gateDict
+        return
+
+    def evaluateCirtuit(self, x):
+        """
+            - x: input, a list of variables
+            - output y, the circuit evaluated at input x
+            the circuit is evaluated under the assumption that it is planar
+        """
+        gates = self.gate_list
+        if len(gates) == 0:
+            return x
+        y = copy.deepcopy(x)  #output list
+        for k in len(gates):
+            gate, idx1, idx2 = gates[k]
+            y[idx1, idx2 + 1] = gate.evaluate(y[idx1, idx2 + 1])
+        return y
+
         
-        self.gateDict = gateDict
     
     def setEdge(gate1, gate2):
-        gate1[].update({"color": "red"})
-        gateDict[gate2.getName()].update("inputsEdge") = gate1.getName()
+        #gate1[].update({"color": "red"})
+        #gateDict[gate2.getName()].update("inputsEdge") = gate1.getName()
 
 
 
