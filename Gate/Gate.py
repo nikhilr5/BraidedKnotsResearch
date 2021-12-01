@@ -4,8 +4,8 @@ class Gate:
         self.name = name
         self.function = function
         self.alphabet = alphabet
-        self.k = k  # input arity
-        self.l = l  # output arity
+        self.input_arity = k  # input arity
+        self.output_arity = l  # output arity
 
     def __str__(self):
         """
@@ -24,13 +24,27 @@ class Gate:
         return self.alphabet
     
     def getK(self):
-        return self.k
+        return self.input_arity
     
     def getL(self):
-        return self.l
+        return self.output_arity
 
     def evaluate(self, x):
         return self.function[(x)]
+
+    def reverseGate(self, newName):
+        """
+            reverse the gate
+        """
+        if self.l != self.k:
+            raise ValueError('Irreversible gate')
+        #invfunction = self.function.invert()
+        # need to build the invert dictionary somehow
+        revfunction = dict(map(reversed, function.items()))
+        ## will NOT work when function is not a bijection
+        ## might fix it later
+        rev = Gate(newName, revfunction, self.alphabet, self.l, self.k)
+        return rev
 
 
 orGate =	{

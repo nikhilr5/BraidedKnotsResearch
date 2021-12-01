@@ -11,6 +11,7 @@ import Bgate
 import Tgate
 from abc import abstractmethod
 import copy
+import networkx
 
 class ReversibleCircuit:
 
@@ -47,6 +48,7 @@ class ReversibleCircuit:
         """
         wiring up the circuit
         later
+        return the graph 
         """
         if len(gateList) == 0:
             return
@@ -70,14 +72,20 @@ class ReversibleCircuit:
             y[idx1, idx2 + 1] = gate.evaluate(y[idx1, idx2 + 1])
         return y
 
+    def reverseCircuit(self, newName):
+        revGateList = []
+        gateList = self.gate_list
+        n = len(gateList)
+        for k in range(n):
+            newGate = copy.deepcopy(gateList[n - 1 - k])
+            newGate = newGate.reverseGate("inv"+newGate.name)
+            revGateList.append(newGate)
+        inv = ReversibleCircuit(newName, revGateList, self.output_arity, self.input_arity)
+        return inv
+
         
     
     def setEdge(gate1, gate2):
         #gate1[].update({"color": "red"})
         #gateDict[gate2.getName()].update("inputsEdge") = gate1.getName()
-
-
-
-
-    
-    
+        pass
