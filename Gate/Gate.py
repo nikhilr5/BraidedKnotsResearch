@@ -40,7 +40,9 @@ class Gate:
             raise ValueError('Irreversible gate')
         #invfunction = self.function.invert()
         # need to build the invert dictionary somehow
-        revfunction = []
+        revfunction = dict(map(reversed, function.items()))
+        ## will NOT work when function is not a bijection
+        ## might fix it later
         rev = Gate(newName, revfunction, self.alphabet, self.l, self.k)
         return rev
 
