@@ -72,15 +72,15 @@ class ReversibleCircuit:
             y[idx1, idx2 + 1] = gate.evaluate(y[idx1, idx2 + 1])
         return y
 
-    def inverseCircuit(self, newName):
-        invGateList = []
+    def reverseCircuit(self, newName):
+        revGateList = []
         gateList = self.gate_list
         n = len(gateList)
         for k in range(n):
             newGate = copy.deepcopy(gateList[n - 1 - k])
-            newGate = newGate.inverseGate("inv"+newGate.name)
-            invGateList.append(newGate)
-        inv = ReversibleCircuit(newName, invGateList, self.output_arity, self.input_arity)
+            newGate = newGate.reverseGate("inv"+newGate.name)
+            revGateList.append(newGate)
+        inv = ReversibleCircuit(newName, revGateList, self.output_arity, self.input_arity)
         return inv
 
         

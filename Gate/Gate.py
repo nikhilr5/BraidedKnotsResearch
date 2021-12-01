@@ -32,17 +32,17 @@ class Gate:
     def evaluate(self, x):
         return self.function[(x)]
 
-    def inverseGate(self, newName):
+    def reverseGate(self, newName):
         """
-            returns the inverse of the gate
+            reverse the gate
         """
         if self.l != self.k:
             raise ValueError('Irreversible gate')
         #invfunction = self.function.invert()
         # need to build the invert dictionary somehow
-        invfunction = []
-        inv = Gate(newName, invfunction, self.alphabet, self.l, self.k)
-        return inv
+        revfunction = []
+        rev = Gate(newName, revfunction, self.alphabet, self.l, self.k)
+        return rev
 
 
 orGate =	{
